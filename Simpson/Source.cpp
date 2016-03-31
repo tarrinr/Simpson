@@ -1,4 +1,5 @@
 #include "Twin.h"
+#include <cmath>
 
 typedef std::vector<double> vec;
 
@@ -73,7 +74,7 @@ int main() {
 
 	if (input == 1)
 		for (double i = a; i <= b; i += h)
-			y.push_back(.2+25*i-200*i*i+675*i*i*i-900*i*i*i*i+400*i*i*i*i*i);
+			y.push_back(1 - i - 4 * pow(i, 3) + 2 * pow(i, 5));
 
 	if (input == 2) {
 
@@ -147,16 +148,16 @@ double simp(const int& n, const double& h, const vec& y) {
 
 		int m = n;
 		if (odd) {
-			sum = 3.0 / 8.0 * h * (y[n - 3] + 3 * (y[n - 2] + y[n - 1]) + y[n]);
+			sum = 3.0 / 8.0 * h * (y[n - 3] + 3.0 * (y[n - 2] + y[n - 1]) + y[n]);
 			m = n - 3;
 		}
 
 		if (m > 1) {
 			double sub = y.front();
 			for (int i = 1; i < m - 2; i += 2)
-				sub += 4 * y[i] + 2 * y[i + 1];
-			sub += 4 * y[m - 1] + y[m];
-			sum += h * sub / 3;
+				sub += 4.0 * y[i] + 2.0 * y[i + 1];
+			sub += 4.0 * y[m - 1] + y[m];
+			sum += h * sub / 3.0;
 		}
 
 		return sum;
